@@ -28,6 +28,7 @@ body {
 
 .sign-up-form {
     display: flex;
+    height: 40vh;
 }
 
 
@@ -58,7 +59,7 @@ p {
     margin: 10px 0px;
 }
 
-.login-text-content {
+.login-text-content, .sign-up-form-content {
     height: 164px;
     width: 30vw;
     margin-top: 40vh;
@@ -77,6 +78,16 @@ p {
     align-self: stretch;
     text-align: center;
     flex: 1;
+    display: none;
+}
+
+.sign-up-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    align-self: stretch;
+    flex: 1;
 }
 
 input {
@@ -94,23 +105,27 @@ h3 {
     text-align: left;
 }
 
-.login-form a, .sign-up-content a {
+.login-form a, .sign-up-content a, .sign-up-form-login a {
     text-decoration: none;
     cursor: pointer;
     margin-bottom: 25px;
     color: #2b2b2b;
+    align-self: flex-end;
 }
 
-.login-form a:hover, .sign-up-content a:hover {
+.login-form a:hover, 
+.sign-up-content a:hover, 
+.sign-up-form-login a:hover{
     color: #00B7BC;
 }
 
 button {
     background: linear-gradient(90deg, #0B9DCA -4.82%, #00B7BC 100.35%);
-    width: 100%;
+    width: 35vw;
     padding: 20px;
     margin-bottom: 10px;
-    border-radius: 5%;
+    margin-top: 12px;
+    border-radius: 1%;
     color: #fff;
     border: none;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -158,7 +173,11 @@ button {
     color: #00B7BC;
 }
 
-.login-form-subscribe a {
+.login-form-subscribe a, .sign-up-form-login a {
     color: #0B9DCA;
     padding: auto;
+}
+
+.sign-up-form-content span {
+    justify-content: center;
 }
