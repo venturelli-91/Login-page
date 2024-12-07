@@ -181,3 +181,29 @@ button {
 .sign-up-form-content span {
     justify-content: center;
 }
+
+.error {
+    border-color: red !important;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .login-form {
+        flex: 3;
+    }
+
+    .login-text-content, .sign-up-form-content {
+        width: 90%;
+    }
+
+    .login-text-content h2 {
+        font-size: 1.6rem;
+    }
+
+
+
+}
