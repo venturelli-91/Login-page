@@ -5,15 +5,15 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-	title: "Login - Refatorando",
-	description: "Sistema de login e cadastro da Refatorando",
+	title: "Refatorando - Login",
+	description: "Sistema de login com Next.js, Tailwind CSS e Zustand",
 };
 
 export default function RootLayout({
 	children,
-}: {
+}: Readonly<{
 	children: React.ReactNode;
-}) {
+}>) {
 	return (
 		<html lang="pt-BR">
 			<head>

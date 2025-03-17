@@ -1,55 +1,30 @@
 "use client";
 
-import { useState, FormEvent, ChangeEvent } from "react";
+import { FormEvent, ChangeEvent } from "react";
 import { Button, TextInput } from "flowbite-react";
 import Image from "next/image";
+import { useAuthStore } from "@/store/authStore";
 
-interface LoginFormProps {
-	onSwitchToSignUp: () => void;
-}
-
-const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToSignUp }) => {
-	const [email, setEmail] = useState<string>("");
-	const [password, setPassword] = useState<string>("");
-	const [errors, setErrors] = useState<string[]>([]);
-	const [emailError, setEmailError] = useState<boolean>(false);
-	const [passwordError, setPasswordError] = useState<boolean>(false);
+const LoginForm = () => {
+	const { formData, formErrors, updateFormData, login, switchToSignUp } =
+		useAuthStore();
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		const newErrors: string[] = [];
-
-		// Validação de senha
-		if (password.trim().length < 8) {
-			setPasswordError(true);
-			newErrors.push("Senha deve conter pelo menos 8 caracteres");
-		} else {
-			setPasswordError(false);
-		}
-
-		// Validação de email
-		const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-		if (!emailRegex.test(email.trim())) {
-			setEmailError(true);
-			newErrors.push("Email inválido!");
-		} else {
-			setEmailError(false);
-		}
-
-		setErrors(newErrors);
+		login(formData.email, formData.password);
 	};
 
 	const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-		setEmail(e.target.value);
+		updateFormData("email", e.target.value);
 	};
 
 	const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-		setPassword(e.target.value);
+		updateFormData("password", e.target.value);
 	};
 
 	return (
-		<div className="flex flex-col items-center justify-center h-screen w-full">
-			<div className="mb-4">
+		<div className="flex flex-col items-center justify-center h-screen w-full px-4 md:px-12">
+			<div className="mb-8 md:hidden">
 				<Image
 					src="/images/Logo_Horizontal_colorida_Refatorando_1.png"
 					alt="logo refatorando"
@@ -60,12 +35,21 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToSignUp }) => {
 
 			<form
 				onSubmit={handleSubmit}
-				className="w-full max-w-md px-4">
+				className="w-full max-w-md">
+				<div className="hidden md:block mb-8">
+					<Image
+						src="/images/Logo_Horizontal_colorida_Refatorando_1.png"
+						alt="logo refatorando"
+						width={200}
+						height={54}
+					/>
+				</div>
+
 				<h3 className="text-left text-xl font-semibold mb-4">Faça seu Login</h3>
 
-				{errors.length > 0 && (
+				{formErrors.errorMessages.length > 0 && (
 					<div className="text-red-500 mb-4">
-						{errors.map((error, index) => (
+						{formErrors.errorMessages.map((error: string, index: number) => (
 							<div key={index}>{error}</div>
 						))}
 					</div>
@@ -76,9 +60,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToSignUp }) => {
 						id="username"
 						type="email"
 						placeholder="E-mail"
-						value={email}
+						value={formData.email}
 						onChange={handleEmailChange}
-						color={emailError ? "failure" : undefined}
+						color={formErrors.emailError ? "failure" : undefined}
 						className="input-field"
 					/>
 				</div>
@@ -88,9 +72,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToSignUp }) => {
 						id="password"
 						type="password"
 						placeholder="Senha"
-						value={password}
+						value={formData.password}
 						onChange={handlePasswordChange}
-						color={passwordError ? "failure" : undefined}
+						color={formErrors.passwordError ? "failure" : undefined}
 						className="input-field"
 					/>
 				</div>
@@ -105,7 +89,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToSignUp }) => {
 
 				<Button
 					type="submit"
-					className="btn-primary"
+					className="btn-primary w-full"
 					gradientDuoTone="cyanToBlue">
 					Entrar
 				</Button>
@@ -118,22 +102,22 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToSignUp }) => {
 					<div className="border-t border-gray-400 w-full"></div>
 				</div>
 
-				<div className="google-btn py-2">
+				<div className="google-btn py-2 flex items-center justify-center w-full border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
 					<Image
 						src="/images/google.svg"
 						alt="Google logo"
-						width={30}
-						height={30}
+						width={24}
+						height={24}
 					/>
 					<span className="ml-2">Sign in with Google</span>
 				</div>
 
-				<div className="text-center mt-4">
+				<div className="text-center mt-6">
 					<span>Não tem uma conta? </span>
 					<a
 						href="#"
-						onClick={onSwitchToSignUp}
-						className="text-[#0B9DCA]">
+						onClick={switchToSignUp}
+						className="text-[#0B9DCA] font-medium hover:underline">
 						Inscreva-se
 					</a>
 				</div>
