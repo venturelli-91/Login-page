@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;700&family=Ubuntu&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	body {
+		@apply font-jakarta bg-white m-0;
+	}
+}
+
+@layer components {
+	.input-field {
+		@apply w-full p-2.5 mb-2.5 rounded border border-gray-300 box-border;
+	}
+
+	.input-error {
+		@apply border-red-500;
+	}
+
+	.btn-primary {
+		@apply w-full p-5 mb-2.5 mt-3 rounded bg-gradient-to-r from-[#0B9DCA] to-[#00B7BC] text-white border-none shadow-md;
+	}
+
+	.link {
+		@apply no-underline cursor-pointer mb-6 text-gray-800;
+	}
+
+	.link:hover {
+		@apply text-[#00B7BC];
+	}
+
+	.google-btn {
+		@apply flex border border-[#EAEAEA] w-full mb-5 mt-10 rounded-md text-base items-center justify-center cursor-pointer;
+	}
+
+	.google-btn img {
+		@apply m-2.5 inline;
+	}
+
+	.google-btn span:hover {
+		@apply text-[#00B7BC];
+	}
+}
